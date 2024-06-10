@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0eb527dfa413948aae3da54b62a2a5, type: 3}
+  m_Name: GlobalValues
+  m_EditorClassIdentifier: 
+  selectionScaleSize: 1.25
+  initialScaleTime: 0.25
+  scaleMultiplier: 1.1
+  scaleTime: 0.5
+  jumpPower: 1
+  jumpCount: 1
+  jumpDuration: 0.5
