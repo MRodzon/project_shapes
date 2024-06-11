@@ -18,8 +18,6 @@ namespace Shapes.UI
 
         [SerializeField]
         protected Button button;
-        [SerializeField]
-        private ParticleSystem particles;
 
         protected Sequence highlightSequence;
         protected Sequence clickedSequence;
@@ -67,8 +65,6 @@ namespace Shapes.UI
 
         protected virtual void ShapeSelected()
         {
-            particles.Play();
-
             highlightSequence.Kill();
             highlightSequence = UIShapeAnimationsHandler.BaseShapeSelected(globalValuesSO, transform);
             highlightSequence.OnComplete(() =>
@@ -80,8 +76,6 @@ namespace Shapes.UI
 
         protected virtual void ShapeDeselected()
         {
-            particles.Stop();
-
             highlightSequence.Kill();
             highlightSequence = UIShapeAnimationsHandler.BaseShapeDeselected(globalValuesSO, transform, startingScale);
         }

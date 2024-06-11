@@ -34,6 +34,8 @@ namespace Shapes.UI
 
         private (UISelectableShape shape, int selectionIndex) selectedShape;
 
+        private UIShape currentEnemyShape;
+
         private Sequence transitionSequence;
 
         private IShapeOffManager shapeOffManager;
@@ -156,16 +158,32 @@ namespace Shapes.UI
             await transitionSequence.AsyncWaitForCompletion();
         }
 
-        public async Task ShapeAttack()
+        public async Task ShapesAttack(IShape enemyShape)
         {
-            await selectedShape.shape.ShapeAttack();
+            currentEnemyShape = enemyShapes.First(x => x.ShapeType == enemyShape.GetShapeType());
+
+            List<Task> tasks = new();
+
+            tasks.Add(selectedShape.shape.ShapeAttack());
+            tasks.Add(currentEnemyShape.ShapeAttack());
+
+            await Task.WhenAll(tasks);
         }
 
         public async Task HurtShapeOffVictim(IShape shape)
         {
-            var uiShape = enemyShapes.First(x => x.ShapeType == shape.GetShapeType());
-
-            await uiShape.ShapeTakeDamage();
+            if(shape.GetShapeType() == selectedShape.shape.ShapeType)
+            {
+                await selectedShape.shape.ShapeTakeDamage();
+            }
+            else if (shape.GetShapeType() == currentEnemyShape.ShapeType)
+            {
+                await currentEnemyShape.ShapeTakeDamage();
+            }
+            else
+            {
+                Debug.LogError("Wrong shape set as victim.");
+            }
         }
 
         #endregion Public methods

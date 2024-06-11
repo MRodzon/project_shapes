@@ -39,7 +39,7 @@ namespace Shapes.UI
         public override async Task ShapeAttack()
         {
             shapeOffSequence.Kill();
-            shapeOffSequence = UIShapeAnimationsHandler.CircleHighlight(globalValuesSO, transform);
+            shapeOffSequence = UIShapeAnimationsHandler.CircleAttack(globalValuesSO, shapeIcon);
 
             await shapeOffSequence.AsyncWaitForCompletion();
         }

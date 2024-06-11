@@ -73,10 +73,13 @@ namespace Shapes.Managers
             selectedShapeType = ShapeTypes.None;
         }
 
-        public async Task ShapeOff(IShape shapeToHurt)
+        public async Task ShapeOffAttackStage(IShape enemyShape)
         {
-            await uiShapesHandler.ShapeAttack();
+            await uiShapesHandler.ShapesAttack(enemyShape);
+        }
 
+        public async Task ShapeOffFallout(IShape shapeToHurt)
+        {
             await uiShapesHandler.HurtShapeOffVictim(shapeToHurt);
         }
 
@@ -125,7 +128,7 @@ namespace Shapes.Managers
 
         private void UiShapesHandler_OnShapeSelected(UIShape selectedShape)
         {
-            selectedShapeType = ShapeTypes.Triangle;
+            selectedShapeType = selectedShape.ShapeType;
         }
 
         #endregion Event callbacks

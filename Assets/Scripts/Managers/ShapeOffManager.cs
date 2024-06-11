@@ -1,6 +1,5 @@
 using Shapes.Core;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Shapes.Managers
@@ -10,8 +9,6 @@ namespace Shapes.Managers
         #region Variables
 
         private IUIManager uiManager;
-
-        private List<IShape> enemyShapes;
 
         private IShape selectedEnemyShape;
 
@@ -30,11 +27,16 @@ namespace Shapes.Managers
 
         public async Task Combat(ShapeTypes type)
         {
-            var shape = SelectShape(type);
+            var playerShape = SelectShape(type);
 
-            var shapeToHurt = ShapeOffVictim(shape, selectedEnemyShape);
+            var shapeToHurt = GetShapeOffVictim(playerShape, selectedEnemyShape);
 
-            await uiManager.ShapeOff(shapeToHurt);
+            await uiManager.ShapeOffAttackStage(selectedEnemyShape);
+
+            if (shapeToHurt != null)
+            {
+                await uiManager.ShapeOffFallout(shapeToHurt);
+            }
         }
 
         public ShapeTypes SelectEnemyShape()
@@ -48,9 +50,27 @@ namespace Shapes.Managers
 
         #region Private methods
 
-        private IShape ShapeOffVictim(IShape shape, IShape enemyShape)
+        private IShape GetShapeOffVictim(IShape playerShape, IShape enemyShape)
         {
-            return enemyShape;
+            if (playerShape.GetShapeType() == enemyShape.GetShapeType())
+            {
+                return null;
+            }
+
+            switch (playerShape.GetShapeType())
+            {
+                case ShapeTypes.Triangle:
+                    return enemyShape.GetShapeType() == ShapeTypes.Circle ? enemyShape : playerShape;
+
+                case ShapeTypes.Circle:
+                    return enemyShape.GetShapeType() == ShapeTypes.Square ? enemyShape : playerShape;
+
+                case ShapeTypes.Square:
+                    return enemyShape.GetShapeType() == ShapeTypes.Triangle ? enemyShape : playerShape;
+
+                default:
+                    return null;
+            }
         }
 
         private IShape SelectShape(ShapeTypes type)

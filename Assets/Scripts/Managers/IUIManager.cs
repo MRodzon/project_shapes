@@ -12,7 +12,9 @@ namespace Shapes.Core
 
         Task ReturnToShapeSelection();
 
-        Task ShapeOff(IShape shapeToHurt);
+        Task ShapeOffAttackStage(IShape enemyShape);
+
+        Task ShapeOffFallout(IShape shapeToHurt);
 
         #endregion Public methods
     }

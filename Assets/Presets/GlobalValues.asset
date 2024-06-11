@@ -19,3 +19,6 @@ MonoBehaviour:
   jumpPower: 1
   jumpCount: 1
   jumpDuration: 0.5
+  attackTime: 0.25
+  damageTakenTime: 1
+  damageTakenDelay: 0.2

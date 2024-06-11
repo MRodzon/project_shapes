@@ -8,12 +8,15 @@ namespace Shapes
         [SerializeField]
         private float selectionScaleSize;
         public float SelectionScaleSize => selectionScaleSize;
+
         [SerializeField]
         private float initialScaleTime;
         public float InitialScaleTime => initialScaleTime;
+
         [SerializeField]
         private float scaleMultiplier;
         public float ScaleMultiplier => scaleMultiplier;
+
         [SerializeField]
         private float scaleTime;
         public float ScaleTime => scaleTime;
@@ -21,11 +24,25 @@ namespace Shapes
         [SerializeField]
         private float jumpPower;
         public float JumpPower => jumpPower;
+
         [SerializeField]
         private int jumpCount;
         public int JumpCount => jumpCount;
+
         [SerializeField]
         private float jumpDuration;
         public float JumpDuration => jumpDuration;
+
+        [SerializeField]
+        private float attackTime;
+        public float AttackTime => attackTime;
+
+        [SerializeField]
+        private float damageTakenTime;
+        public float DamageTakenTime => damageTakenTime;
+
+        [SerializeField]
+        private float damageTakenDelay;
+        public float DamageTakenDelay => damageTakenDelay;
     }
 }

@@ -76,7 +76,7 @@ namespace Shapes.UI
         public static Sequence TriangleAttack(GlobalValuesSO globalValuesSO, Image shapeIcon)
         {
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(shapeIcon.rectTransform.DOLocalRotate(new(0, 0, -360), 0.25f, RotateMode.FastBeyond360));
+            sequence.Append(shapeIcon.rectTransform.DOLocalRotate(new(0, 0, -360), globalValuesSO.AttackTime, RotateMode.FastBeyond360));
 
             return sequence;
         }
@@ -84,7 +84,8 @@ namespace Shapes.UI
         public static Sequence TriangleTakeDamage(GlobalValuesSO globalValuesSO, Image shapeIcon)
         {
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(shapeIcon.transform.DOPunchScale(shapeIcon.transform.localScale, 1f));
+            sequence.SetDelay(globalValuesSO.DamageTakenDelay);
+            sequence.Append(shapeIcon.rectTransform.DOPunchScale(shapeIcon.transform.localScale, globalValuesSO.DamageTakenTime));
 
             return sequence;
         }
@@ -129,10 +130,19 @@ namespace Shapes.UI
             return sequence;
         }
 
+        public static Sequence CircleAttack(GlobalValuesSO globalValuesSO, Image shapeIcon)
+        {
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(shapeIcon.rectTransform.DOPunchPosition(-shapeIcon.rectTransform.position * 100, globalValuesSO.AttackTime));
+
+            return sequence;
+        }
+
         public static Sequence CircleTakeDamage(GlobalValuesSO globalValuesSO, Image shapeIcon)
         {
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(shapeIcon.transform.DOPunchScale(shapeIcon.transform.localScale, 1f));
+            sequence.SetDelay(globalValuesSO.DamageTakenDelay);
+            sequence.Append(shapeIcon.rectTransform.DOPunchScale(shapeIcon.transform.localScale, globalValuesSO.DamageTakenTime));
 
             return sequence;
         }
@@ -180,10 +190,19 @@ namespace Shapes.UI
             return sequence;
         }
 
+        public static Sequence SquareAttack(GlobalValuesSO globalValuesSO, Image shapeIcon)
+        {
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(shapeIcon.rectTransform.DOPunchPosition(-shapeIcon.rectTransform.position * 100, globalValuesSO.AttackTime));
+
+            return sequence;
+        }
+
         public static Sequence SquareTakeDamage(GlobalValuesSO globalValuesSO, Image shapeIcon)
         {
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(shapeIcon.transform.DOPunchScale(shapeIcon.transform.localScale, 1f));
+            sequence.SetDelay(globalValuesSO.DamageTakenDelay);
+            sequence.Append(shapeIcon.rectTransform.DOPunchScale(shapeIcon.transform.localScale, globalValuesSO.DamageTakenTime));
 
             return sequence;
         }
@@ -217,6 +236,7 @@ namespace Shapes.UI
                     return null;
             }
         }
+
         public static Sequence ShapeAttack(ShapeTypes shapeType, GlobalValuesSO globalValuesSO, Image shapeIcon)
         {
             switch (shapeType)
@@ -225,15 +245,16 @@ namespace Shapes.UI
                     return TriangleAttack(globalValuesSO, shapeIcon);
 
                 case ShapeTypes.Circle:
-                    return CircleHighlight(globalValuesSO, shapeIcon.transform);
+                    return CircleAttack(globalValuesSO, shapeIcon);
 
                 case ShapeTypes.Square:
-                    return SquareHighlight(globalValuesSO, shapeIcon.transform);
+                    return SquareAttack(globalValuesSO, shapeIcon);
 
                 default:
                     return null;
             }
         }
+
         public static Sequence ShapeTakeDamage(ShapeTypes shapeType, GlobalValuesSO globalValuesSO, Image shapeIcon)
         {
             switch (shapeType)
